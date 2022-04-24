@@ -1,0 +1,6 @@
+---
+- name: "Manage Server"
+  hosts: myhostgroup
+  tasks:
+    - ansible.builtin.ping:
+
