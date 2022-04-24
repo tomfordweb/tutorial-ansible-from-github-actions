@@ -1,0 +1,29 @@
+name: Server Configuration
+on:
+  push:
+    branches:
+      - "main"
+jobs:
+  script:
+    runs-on: ubuntu-latest
+    steps:
+      # Installs the private SSH key so we can authenticate with the server.
+      # The known host placeholder is necessary to make the action to work.
+      # This is already setup on the server to accept our key.
+      - name: Install SSH Key for the server
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: "a-placeholder"
+
+      # Check the repo out. We need to be able to access the playbook.
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      # NOTE: Not needed for your use necessary for testing.
+      - name: Add secret hostname to /etc/hosts
+        run: echo "${{ secrets.SERVER }} do-devbox" | sudo tee -a /etc/hosts
+
+      # Ansible is installed on ubuntu-latest
+      - name: Ansible
+        run: "ansible-playbook server.yml"
