@@ -2,5 +2,9 @@
 - name: "Manage Server"
   hosts: myhostgroup
   tasks:
-    - ansible.builtin.ping:
+    - name: Update apt cache and upgrade packages
+      become: True
+      apt:
+        upgrade: dist
+        update_cache: True
 
