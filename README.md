@@ -1,3 +1,3 @@
-project notes:
+# Notes
 
-- do not have to use server ip hidden in secrets and local env file. This is for me to edit and test the project
+This is a demo for [this post](https://tomfordweb.com/manage-infrastructure-with-ansible-in-github-actions).
